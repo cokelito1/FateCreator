@@ -8,6 +8,8 @@ char Desc[50][50];
 char aspectos[255][255];
 char problemas[255][255];
 
+FILE *fate_c;
+
 typedef struct Datasheet DataSheet;
 
 struct Datasheet{
@@ -50,7 +52,6 @@ struct Datasheet{
   }stress;
 };
 
-time_t t;
 
 
 
@@ -59,7 +60,7 @@ void printDS(DataSheet sheet);
 
 DataSheet initData(DataSheet Data);
 
-int main(){
+int main(int argc, char ** argv){
 
   srand(time(NULL));
 
@@ -243,4 +244,33 @@ void printDS(DataSheet sheet){
   printf("Fate:      %d \n", sheet.f_points);
   printf("Refresh:   %d \n", sheet.f_refresh);
   printf("\n");
+
+  fate_c = fopen("character.fte", "w");
+
+  fprintf(fate_c ,"Nombre:    %s \n", sheet.name);
+
+  fprintf(fate_c ,"\n");
+
+  fprintf(fate_c ,"Principal: %s \n", sheet.aspects.a_principal);
+  fprintf(fate_c ,"Problema:  %s \n", sheet.aspects.problem);
+  fprintf(fate_c ,"Primero:   %s \n", sheet.aspects.a_first);
+  fprintf(fate_c ,"Segundo:   %s \n", sheet.aspects.a_second);
+  fprintf(fate_c ,"Tercero:   %s \n", sheet.aspects.a_third);
+
+  fprintf(fate_c ,"\n");
+
+  fprintf(fate_c ,"Sagaz:     %d \n", sheet.styles.e_sagaz);
+  fprintf(fate_c ,"Cauto:     %d \n", sheet.styles.e_cauto);
+  fprintf(fate_c ,"Rapido:    %d \n", sheet.styles.e_rapido);
+  fprintf(fate_c ,"Furtivo:   %d \n", sheet.styles.e_furtivo);
+  fprintf(fate_c ,"Energico:  %d \n", sheet.styles.e_energico);
+  fprintf(fate_c ,"Llamativo: %d \n", sheet.styles.e_llamativo);
+
+  fprintf(fate_c ,"\n");
+
+  fprintf(fate_c ,"Fate:      %d \n", sheet.f_points);
+  fprintf(fate_c ,"Refresh:   %d \n", sheet.f_refresh);
+  fprintf(fate_c ,"\n");
+
+  fclose(fate_c);
 }
