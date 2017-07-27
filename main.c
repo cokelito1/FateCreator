@@ -57,6 +57,7 @@ struct Datasheet{
 
 short fateDice(unsigned short quantity);
 void printDS(DataSheet sheet);
+void writeToFile(DataSheet sheet, char fName[]);
 
 DataSheet initData(DataSheet Data);
 
@@ -167,8 +168,13 @@ int main(int argc, char ** argv){
   strcpy(aspectos[23], "Experto en IT");
   strcpy(aspectos[24], "Recupero cosas de la basura");
 
+
   DataSheet d;
   d = initData(d);
+
+  if(strcmp(argv[1], "-s") == 0){
+    writeToFile(d, argv[2]);
+  }
 
   printDS(d);
 
@@ -244,8 +250,12 @@ void printDS(DataSheet sheet){
   printf("Fate:      %d \n", sheet.f_points);
   printf("Refresh:   %d \n", sheet.f_refresh);
   printf("\n");
+}
 
-  fate_c = fopen("character.fte", "w");
+void writeToFile(DataSheet sheet, char fName[]){
+
+  strcat(fName, ".fcs");
+  fate_c = fopen(fName, "w");
 
   fprintf(fate_c ,"Nombre:    %s \n", sheet.name);
 
@@ -273,4 +283,5 @@ void printDS(DataSheet sheet){
   fprintf(fate_c ,"\n");
 
   fclose(fate_c);
+
 }
